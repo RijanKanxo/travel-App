@@ -1,11 +1,9 @@
 import { useState, useEffect, useRef } from 'react';
 import { MainNavigation } from './components/MainNavigation';
 import { HomePage } from './components/HomePage';
-import { TestPage } from './components/TestPage';
 import { TravelJournal } from './components/TravelJournal';
 import { LocalMarketplace } from './components/LocalMarketplace';
 import { OfflineGuideBuilder } from './components/OfflineGuideBuilder';
-import { LoadingScreen } from './components/LoadingScreen';
 
 // User interfaces to match AuthSystem
 interface User {
@@ -43,6 +41,13 @@ function App() {
         localStorage.removeItem('user');
       }
     }
+    
+    // Simulate loading time for better UX
+    const loadingTimer = setTimeout(() => {
+      setIsLoading(false);
+    }, 2000);
+    
+    return () => clearTimeout(loadingTimer);
   }, []);
 
   // Monitor scroll for search bar animation and auto-scroll to popular destinations
@@ -167,7 +172,13 @@ function App() {
     <div className="min-h-screen bg-gray-50">
       {/* Loading Screen */}
       {isLoading && (
-        <LoadingScreen onLoadingComplete={() => setIsLoading(false)} />
+        <div className="fixed inset-0 bg-white z-50 flex items-center justify-center">
+          <div className="text-center">
+            <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-gray-900 mx-auto mb-4"></div>
+            <h2 className="text-xl font-semibold text-gray-900">Loading Wanderly Nepal...</h2>
+            <p className="text-gray-600 mt-2">Preparing your travel experience</p>
+          </div>
+        </div>
       )}
 
       {/* Main navigation */}

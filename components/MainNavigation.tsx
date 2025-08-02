@@ -1,20 +1,15 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Button } from './ui/button';
 import { Avatar, AvatarFallback } from './ui/avatar';
 import { Input } from './ui/input';
-import { Badge } from './ui/badge';
 import { 
   MapPin, 
   BookOpen, 
   ShoppingBag, 
   Download, 
   Search,
-  Home,
-  LogIn,
   LogOut,
   ArrowUp,
-  Filter,
-  ChevronDown,
   Mountain,
   Hotel,
   Camera,
@@ -62,7 +57,6 @@ interface MainNavigationProps {
   searchQuery: string;
   onSearchChange: (query: string) => void;
   isScrolled: boolean;
-  onScrollToDiscover?: () => void;
 }
 
 export function MainNavigation({ 
@@ -74,12 +68,10 @@ export function MainNavigation({
   onLogout,
   searchQuery,
   onSearchChange,
-  isScrolled,
-  onScrollToDiscover
+  isScrolled
 }: MainNavigationProps) {
   
   const [isSearchExpanded, setIsSearchExpanded] = useState(false);
-  const [searchFocused, setSearchFocused] = useState(false);
 
   const tabs = [
     { id: 'journal', label: 'Journal', icon: BookOpen },
@@ -129,12 +121,10 @@ export function MainNavigation({
 
   const handleSearchExpand = () => {
     setIsSearchExpanded(true);
-    setSearchFocused(true);
   };
 
   const handleSearchCollapse = () => {
     setIsSearchExpanded(false);
-    setSearchFocused(false);
   };
 
   return (

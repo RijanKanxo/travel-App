@@ -11,7 +11,6 @@ import {
   Filter,
   Heart,
   Share,
-  Calendar,
   Users,
   Camera,
   Mountain,

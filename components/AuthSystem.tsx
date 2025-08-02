@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { X, Heart, User, MapPin } from 'lucide-react';
+import { Heart, User, MapPin } from 'lucide-react';
 
 interface User {
   id: string;

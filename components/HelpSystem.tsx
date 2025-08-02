@@ -19,7 +19,6 @@ import {
   Verified,
   Send,
   Filter,
-  Bell,
   Star
 } from 'lucide-react';
 

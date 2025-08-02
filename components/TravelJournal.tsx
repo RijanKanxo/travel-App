@@ -1,27 +1,21 @@
 import { useState } from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
+import { Card, CardContent, CardHeader } from './ui/card';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { Textarea } from './ui/textarea';
 import { Badge } from './ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from './ui/tabs';
-import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from './ui/dialog';
 import { 
   Plus, 
   Calendar, 
   MapPin, 
-  Camera,
   Heart,
   MessageCircle,
   Share,
   Edit,
   Trash2,
-  Image as ImageIcon,
-  Star,
-  Clock,
   Users,
-  Mountain,
   Eye,
   BookOpen,
   Filter,

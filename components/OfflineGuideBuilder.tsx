@@ -10,11 +10,7 @@ import {
   MapPin, 
   Wifi,
   WifiOff,
-  FileText,
-  Image,
-  Map,
   Star,
-  Clock,
   HardDrive,
   Check,
   X,
@@ -24,11 +20,7 @@ import {
   Pause,
   Trash2,
   FolderOpen,
-  Globe,
-  Navigation,
-  Camera,
-  Book,
-  Phone
+  Book
 } from 'lucide-react';
 
 interface OfflineGuide {

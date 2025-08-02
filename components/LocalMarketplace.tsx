@@ -9,7 +9,6 @@ import {
   Search, 
   Star, 
   MapPin, 
-  Clock,
   Phone,
   MessageCircle,
   Filter,
@@ -22,10 +21,7 @@ import {
   Home,
   Gift,
   ChevronRight,
-  DollarSign,
-  Users,
-  Verified,
-  Calendar
+  Verified
 } from 'lucide-react';
 
 interface MarketplaceItem {
