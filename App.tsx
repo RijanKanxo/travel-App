@@ -172,11 +172,16 @@ function App() {
     <div className="min-h-screen bg-gray-50">
       {/* Loading Screen */}
       {isLoading && (
-        <div className="fixed inset-0 bg-white z-50 flex items-center justify-center">
+        <div className="fixed inset-0 bg-gradient-to-br from-blue-50 to-orange-50 z-50 flex items-center justify-center">
           <div className="text-center">
-            <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-gray-900 mx-auto mb-4"></div>
-            <h2 className="text-xl font-semibold text-gray-900">Loading Wanderly Nepal...</h2>
-            <p className="text-gray-600 mt-2">Preparing your travel experience</p>
+            <div className="mb-8">
+              <div className="text-6xl mb-4">🙏</div>
+              <div className="animate-pulse text-4xl font-bold text-gray-800 mb-2">नमस्ते</div>
+              <div className="text-2xl font-semibold text-gray-700 mb-4">Namaste</div>
+            </div>
+            <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-orange-500 mx-auto mb-6"></div>
+            <h2 className="text-xl font-semibold text-gray-900 mb-2">Welcome to Wanderly Nepal</h2>
+            <p className="text-gray-600">Preparing your journey through the Himalayas...</p>
           </div>
         </div>
       )}
