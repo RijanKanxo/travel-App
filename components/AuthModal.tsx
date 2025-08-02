@@ -133,9 +133,9 @@ export function AuthModal({ isOpen, onClose, onAuthSuccess }: AuthModalProps) {
             )}
             
             {success && (
-              <div className="flex items-center gap-2 p-3 mt-4 bg-green-50 border border-green-200 rounded-lg">
-                <CheckCircle className="w-4 h-4 text-green-500" />
-                <span className="text-sm text-green-700">{success}</span>
+              <div className="flex items-center gap-2 p-3 mt-4 bg-gray-50 border border-gray-200 rounded-lg">
+                <CheckCircle className="w-4 h-4 text-gray-600" />
+                <span className="text-sm text-gray-700">{success}</span>
               </div>
             )}
             

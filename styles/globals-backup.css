@@ -1,0 +1,525 @@
+/* Import Google Fonts for Nepal - Devanagari Script Support */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  --font-size: 14px;
+  
+  /* Nepal-inspired color palette - Light Mode */
+  /* Nepal Flag Colors */
+  --nepal-crimson: #DC143C;
+  --nepal-blue: #003893;
+  --nepal-white: #FFFFFF;
+  
+  /* Himalayan Nature Colors */
+  --himalayan-snow: #F8F9FA;
+  --mountain-mist: #E8F4FD;
+  --alpine-blue: #4A90E2;
+  --glacier-blue: #B8E6FF;
+  --everest-peak: #E1F5FE;
+  
+  /* Cultural Heritage Colors */
+  --temple-gold: #FFD700;
+  --prayer-flag-red: #FF6B6B;
+  --prayer-flag-yellow: #FFE66D;
+  --prayer-flag-green: #4ECDC4;
+  --prayer-flag-white: #FFFFFF;
+  --prayer-flag-blue: #45B7D1;
+  
+  /* Natural Elements */
+  --rhododendron-pink: #FF69B4;
+  --terrace-green: #7CB342;
+  --valley-green: #66BB6A;
+  --monsoon-gray: #78909C;
+  --earth-brown: #8D6E63;
+  
+  /* Dark Mode - Night in the Himalayas */
+  --midnight-himalaya: #0D1B2A;
+  --starlit-blue: #1B263B;
+  --moon-glow: #415A77;
+  --shadow-mountain: #415A77;
+  --deep-valley: #1B263B;
+  
+  
+  --background: 210 40% 98%;
+  --foreground: 220 16% 16%; /* Improved contrast */
+  --card: 0 0% 100%;
+  --card-foreground: 220 16% 16%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 220 16% 16%;
+  --primary: 348 83% 47%; /* Nepal Crimson */
+  --primary-foreground: 0 0% 100%;
+  --secondary: 207 90% 21%; /* Nepal Blue */
+  --secondary-foreground: 0 0% 100%;
+  --muted: 210 40% 96%;
+  --muted-foreground: 215 16% 38%; /* Better contrast #495057 */
+  --accent: 45 100% 40%; /* Darker Temple Gold #C59F00 */
+  --accent-foreground: 220 16% 16%;
+  --destructive: 0 84% 60%;
+  --destructive-foreground: 0 0% 100%;
+  --border: 214 15% 82%; /* More visible border #c0c0c0 */
+  --input: 214 15% 96%;
+  --ring: 348 83% 47%;
+  
+  /* Hover states for better accessibility */
+  --primary-hover: 348 83% 40%;
+  --secondary-hover: 207 90% 30%;
+  --accent-hover: 45 100% 35%;
+  
+  /* Chart colors inspired by Nepal's prayer flags */
+  --chart-1: 348 83% 47%; /* Red */
+  --chart-2: 207 90% 21%; /* Blue */
+  --chart-3: 51 100% 50%; /* Yellow */
+  --chart-4: 174 62% 56%; /* Green */
+  --chart-5: 0 0% 100%; /* White */
+  
+  --radius: 0.625rem;
+  --sidebar: #ffffff;
+  --sidebar-foreground: #1a1a1a;
+  --sidebar-primary: var(--nepal-crimson);
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: var(--temple-gold);
+  --sidebar-accent-foreground: #1a1a1a;
+  --sidebar-border: rgba(0, 0, 0, 0.1);
+  --sidebar-ring: var(--nepal-crimson);
+}
+
+.dark {
+  --background: 220 40% 10%; /* Better dark background */
+  --foreground: 210 20% 92%; /* Improved contrast for text */
+  --card: 220 30% 14%; /* Lighter cards for better content visibility */
+  --card-foreground: 210 20% 92%;
+  --popover: 220 30% 14%;
+  --popover-foreground: 210 20% 92%;
+  --primary: 348 83% 55%; /* Slightly brighter Nepal Crimson */
+  --primary-foreground: 0 0% 100%;
+  --secondary: 207 90% 40%; /* Better contrast blue #5FA8F3 */
+  --secondary-foreground: 0 0% 100%;
+  --muted: 220 25% 18%;
+  --muted-foreground: 215 15% 70%; /* Much better contrast for dark mode */
+  --accent: 45 100% 40%; /* Darker Temple Gold for accessibility */
+  --accent-foreground: 220 40% 10%;
+  --destructive: 0 84% 60%;
+  --destructive-foreground: 0 0% 100%;
+  --border: 220 25% 28%; /* More visible borders */
+  --input: 220 25% 20%;
+  --ring: 348 83% 55%;
+  
+  /* Dark mode hover states */
+  --primary-hover: 348 83% 50%;
+  --secondary-hover: 207 90% 45%;
+  --accent-hover: 45 100% 45%;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-input-background: var(--input-background);
+  --color-switch-background: var(--switch-background);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+  
+  /* Nepal palette utilities */
+  --color-nepal-crimson: var(--nepal-crimson);
+  --color-nepal-blue: var(--nepal-blue);
+  --color-nepal-white: var(--nepal-white);
+  --color-himalayan-snow: var(--himalayan-snow);
+  --color-mountain-mist: var(--mountain-mist);
+  --color-alpine-blue: var(--alpine-blue);
+  --color-glacier-blue: var(--glacier-blue);
+  --color-everest-peak: var(--everest-peak);
+  --color-temple-gold: var(--temple-gold);
+  --color-prayer-flag-red: var(--prayer-flag-red);
+  --color-prayer-flag-yellow: var(--prayer-flag-yellow);
+  --color-prayer-flag-green: var(--prayer-flag-green);
+  --color-prayer-flag-blue: var(--prayer-flag-blue);
+  --color-rhododendron-pink: var(--rhododendron-pink);
+  --color-terrace-green: var(--terrace-green);
+  --color-valley-green: var(--valley-green);
+  --color-monsoon-gray: var(--monsoon-gray);
+  --color-earth-brown: var(--earth-brown);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/**
+ * Base typography with responsive scaling and better accessibility
+ */
+@layer base {
+  :where(:not(:has([class*=" text-"]), :not(:has([class^="text-"])))) {
+    h1 {
+      font-size: clamp(2rem, 5vw, 3rem); /* 32-48px responsive */
+      font-weight: 700;
+      line-height: 1.2;
+      letter-spacing: -0.025em;
+    }
+
+    h2 {
+      font-size: clamp(1.5rem, 4vw, 2.25rem); /* 24-36px responsive */
+      font-weight: 600;
+      line-height: 1.3;
+      letter-spacing: -0.025em;
+    }
+
+    h3 {
+      font-size: clamp(1.25rem, 3vw, 1.75rem); /* 20-28px responsive */
+      font-weight: 600;
+      line-height: 1.4;
+      letter-spacing: 0;
+    }
+
+    h4 {
+      font-size: clamp(1.125rem, 2.5vw, 1.5rem); /* 18-24px responsive */
+      font-weight: 600;
+      line-height: 1.4;
+      letter-spacing: 0;
+    }
+
+    p {
+      font-size: clamp(1rem, 2vw, 1.125rem); /* 16-18px responsive */
+      font-weight: 400;
+      line-height: 1.6;
+      letter-spacing: 0.01em;
+    }
+
+    label {
+      font-size: clamp(0.875rem, 2vw, 1rem); /* 14-16px responsive */
+      font-weight: 500;
+      line-height: 1.5;
+      letter-spacing: 0.025em;
+    }
+
+    button {
+      font-size: clamp(0.875rem, 2vw, 1rem); /* 14-16px responsive */
+      font-weight: 600;
+      line-height: 1.5;
+      letter-spacing: 0.025em;
+    }
+
+    input {
+      font-size: clamp(1rem, 2vw, 1.125rem); /* 16-18px responsive */
+      font-weight: 400;
+      line-height: 1.5;
+      letter-spacing: 0.01em;
+    }
+  }
+}
+
+html {
+  font-size: var(--font-size);
+}
+
+/* Nepal-inspired utility classes */
+@layer utilities {
+  .bg-nepal-crimson { background-color: var(--nepal-crimson); }
+  .bg-nepal-blue { background-color: var(--nepal-blue); }
+  .bg-himalayan-snow { background-color: var(--himalayan-snow); }
+  .bg-mountain-mist { background-color: var(--mountain-mist); }
+  .bg-alpine-blue { background-color: var(--alpine-blue); }
+  .bg-glacier-blue { background-color: var(--glacier-blue); }
+  .bg-temple-gold { background-color: var(--temple-gold); }
+  .bg-prayer-flag-red { background-color: var(--prayer-flag-red); }
+  .bg-prayer-flag-yellow { background-color: var(--prayer-flag-yellow); }
+  .bg-prayer-flag-green { background-color: var(--prayer-flag-green); }
+  .bg-prayer-flag-blue { background-color: var(--prayer-flag-blue); }
+  .bg-rhododendron-pink { background-color: var(--rhododendron-pink); }
+  .bg-terrace-green { background-color: var(--terrace-green); }
+  .bg-valley-green { background-color: var(--valley-green); }
+  .bg-monsoon-gray { background-color: var(--monsoon-gray); }
+  .bg-earth-brown { background-color: var(--earth-brown); }
+  
+  .text-nepal-crimson { color: var(--nepal-crimson); }
+  .text-nepal-blue { color: var(--nepal-blue); }
+  .text-himalayan-snow { color: var(--himalayan-snow); }
+  .text-temple-gold { color: var(--temple-gold); }
+  .text-prayer-flag-red { color: var(--prayer-flag-red); }
+  .text-prayer-flag-green { color: var(--prayer-flag-green); }
+  .text-prayer-flag-blue { color: var(--prayer-flag-blue); }
+  .text-terrace-green { color: var(--terrace-green); }
+  .text-valley-green { color: var(--valley-green); }
+  .text-monsoon-gray { color: var(--monsoon-gray); }
+  .text-earth-brown { color: var(--earth-brown); }
+  
+  .border-nepal-crimson { border-color: var(--nepal-crimson); }
+  .border-nepal-blue { border-color: var(--nepal-blue); }
+  .border-temple-gold { border-color: var(--temple-gold); }
+  .border-terrace-green { border-color: var(--terrace-green); }
+  .border-valley-green { border-color: var(--valley-green); }
+  
+  /* Postcard-style utilities */
+  .postcard-shadow {
+    box-shadow: 
+      0 4px 6px -1px rgba(0, 0, 0, 0.1),
+      0 2px 4px -1px rgba(0, 0, 0, 0.06),
+      inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  }
+  
+  .postcard-border {
+    border: 2px solid rgba(220, 20, 60, 0.2);
+    border-radius: 12px;
+    position: relative;
+    transition: all 0.3s ease;
+  }
+  
+  .postcard-border:hover {
+    border-color: rgba(220, 20, 60, 0.4);
+    box-shadow: 
+      0 8px 25px -5px rgba(0, 0, 0, 0.1),
+      0 4px 6px -2px rgba(0, 0, 0, 0.05),
+      inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  }
+  
+  .postcard-border::before {
+    content: '';
+    position: absolute;
+    inset: 4px;
+    border: 1px dashed rgba(220, 20, 60, 0.3);
+    border-radius: 8px;
+    pointer-events: none;
+    transition: border-color 0.3s ease;
+  }
+  
+  .postcard-border:hover::before {
+    border-color: rgba(220, 20, 60, 0.5);
+  }
+  
+  .postcard-stamp {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(135deg, var(--nepal-crimson), var(--nepal-blue));
+    border-radius: 4px;
+    border: 2px solid white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
+  
+  .prayer-flag-gradient {
+    background: linear-gradient(
+      90deg,
+      var(--prayer-flag-blue) 0%,
+      var(--prayer-flag-white) 25%,
+      var(--prayer-flag-red) 50%,
+      var(--prayer-flag-green) 75%,
+      var(--prayer-flag-yellow) 100%
+    );
+  }
+  
+  .himalayan-gradient {
+    background: linear-gradient(
+      180deg,
+      var(--everest-peak) 0%,
+      var(--glacier-blue) 30%,
+      var(--alpine-blue) 60%,
+      var(--nepal-blue) 100%
+    );
+  }
+  
+  /* Traditional Nepal Patterns */
+  .nepal-pattern {
+    background-image: 
+      radial-gradient(circle at 20% 20%, rgba(220, 20, 60, 0.1) 0%, transparent 50%),
+      radial-gradient(circle at 80% 80%, rgba(0, 56, 147, 0.1) 0%, transparent 50%),
+      radial-gradient(circle at 40% 40%, rgba(255, 215, 0, 0.1) 0%, transparent 50%);
+  }
+  
+  .mandala-border {
+    border-image: repeating-linear-gradient(
+      45deg,
+      var(--nepal-crimson) 0px,
+      var(--nepal-crimson) 2px,
+      transparent 2px,
+      transparent 8px,
+      var(--temple-gold) 8px,
+      var(--temple-gold) 10px,
+      transparent 10px,
+      transparent 16px
+    ) 1;
+  }
+  
+  /* Typography for Nepal */
+  .nepali-font {
+    font-family: 'Noto Sans Devanagari', 'Inter', sans-serif;
+  }
+  
+  /* Khukuri (Traditional Knife) Shape Elements */
+  .khukuri-divider {
+    position: relative;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--nepal-crimson), transparent);
+  }
+  
+  .khukuri-divider::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: -2px;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-bottom: 6px solid var(--nepal-crimson);
+  }
+  
+  /* Better Spacing and Layout */
+  .container-breathing {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+  
+  @media (max-width: 768px) {
+    .container-breathing {
+      padding: 0 1rem;
+    }
+  }
+  
+  .section-spacing {
+    margin-bottom: 3rem;
+  }
+  
+  .card-breathing {
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  /* Dark mode text improvements */
+  .dark .text-muted-foreground {
+    color: hsl(215, 15%, 70%) !important;
+  }
+  
+  .dark .text-nepal-blue {
+    color: #5FA8F3 !important; /* Better contrast blue for dark mode */
+  }
+  
+  .dark .text-nepal-blue\/80 {
+    color: rgba(95, 168, 243, 0.8) !important;
+  }
+  
+  .dark .text-nepal-blue\/70 {
+    color: rgba(95, 168, 243, 0.7) !important;
+  }
+  
+  .dark .text-monsoon-gray {
+    color: #A0AEC0 !important; /* Better gray for dark mode */
+  }
+  
+  /* Accessible Button Styling */
+  .btn-primary {
+    padding: 0.75rem 1.25rem;
+    border-radius: 0.75rem;
+    font-weight: 600;
+    transition: all 0.2s ease;
+    background-color: hsl(var(--primary));
+    color: white;
+    border: 2px solid transparent;
+  }
+  
+  .btn-primary:hover {
+    background-color: hsl(var(--primary-hover));
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(220, 20, 60, 0.3);
+  }
+  
+  .btn-primary:focus-visible {
+    outline: 2px solid hsl(var(--accent));
+    outline-offset: 2px;
+    box-shadow: 0 0 0 4px rgba(197, 159, 0, 0.2);
+  }
+  
+  .btn-primary:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(220, 20, 60, 0.2);
+  }
+  
+  .btn-secondary {
+    padding: 0.75rem 1.25rem;
+    border-radius: 0.75rem;
+    font-weight: 600;
+    transition: all 0.2s ease;
+    background-color: hsl(var(--secondary));
+    color: white;
+    border: 2px solid transparent;
+  }
+  
+  .btn-secondary:hover {
+    background-color: hsl(var(--secondary-hover));
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 56, 147, 0.3);
+  }
+  
+  .btn-secondary:focus-visible {
+    outline: 2px solid hsl(var(--accent));
+    outline-offset: 2px;
+    box-shadow: 0 0 0 4px rgba(197, 159, 0, 0.2);
+  }
+  
+  /* Enhanced Interactive States */
+  .interactive-card {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .interactive-card:hover {
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+  }
+  
+  .interactive-card:focus-visible {
+    outline: 2px solid hsl(var(--accent));
+    outline-offset: 4px;
+  }
+  
+  /* Focus Ring for All Interactive Elements */
+  .focus-ring:focus-visible {
+    outline: 2px solid hsl(var(--accent));
+    outline-offset: 2px;
+    box-shadow: 0 0 0 4px rgba(197, 159, 0, 0.2);
+  }
+}

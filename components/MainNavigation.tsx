@@ -1,20 +1,27 @@
-import { useState } from 'react';
-import { Tabs, TabsList, TabsTrigger } from './ui/tabs';
+import React, { useState } from 'react';
 import { Button } from './ui/button';
+import { Avatar, AvatarFallback } from './ui/avatar';
+import { Input } from './ui/input';
 import { Badge } from './ui/badge';
-import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
 import { 
   MapPin, 
   BookOpen, 
   ShoppingBag, 
   Download, 
-  MessageCircle, 
-  Bell,
-  Wifi,
-  WifiOff,
-  Shield,
-  User,
-  Settings
+  Search,
+  Home,
+  LogIn,
+  LogOut,
+  ArrowUp,
+  Filter,
+  ChevronDown,
+  Mountain,
+  Hotel,
+  Camera,
+  Utensils,
+  Car,
+  X,
+  Clock
 } from 'lucide-react';
 
 interface User {
@@ -47,159 +54,355 @@ interface UserProfile {
 interface MainNavigationProps {
   activeTab: string;
   onTabChange: (tab: string) => void;
-  user: User;
-  profile: UserProfile;
-  hasNewAlerts: boolean;
-  isOnline: boolean;
+  user?: User;
+  profile?: UserProfile;
+  isAuthenticated: boolean;
+  onLogin: () => void;
+  onLogout: () => void;
+  searchQuery: string;
+  onSearchChange: (query: string) => void;
+  isScrolled: boolean;
+  onScrollToDiscover?: () => void;
 }
 
 export function MainNavigation({ 
   activeTab, 
   onTabChange, 
-  user, 
   profile, 
-  hasNewAlerts, 
-  isOnline 
+  isAuthenticated,
+  onLogin,
+  onLogout,
+  searchQuery,
+  onSearchChange,
+  isScrolled,
+  onScrollToDiscover
 }: MainNavigationProps) {
+  
+  const [isSearchExpanded, setIsSearchExpanded] = useState(false);
+  const [searchFocused, setSearchFocused] = useState(false);
+
   const tabs = [
-    { id: 'discover', label: 'Discover', icon: MapPin },
     { id: 'journal', label: 'Journal', icon: BookOpen },
     { id: 'marketplace', label: 'Marketplace', icon: ShoppingBag },
-    { id: 'offline', label: 'Offline Guide', icon: Download },
-    { id: 'help', label: 'Help', icon: MessageCircle },
-    { id: 'alerts', label: 'Alerts', icon: Bell }
+    { id: 'offline', label: 'Offline', icon: Download },
   ];
 
-  // Determine safety zone based on user location and profile
-  const getSafetyStatus = () => {
-    if (profile.safety_rating >= 4.5) {
-      return { status: 'Safe Zone', color: 'text-nepal-prayer-flag-green' };
-    } else if (profile.safety_rating >= 3.5) {
-      return { status: 'Caution', color: 'text-nepal-saffron' };
+  const categories = [
+    { id: 'all', label: 'All', icon: Search },
+    { id: 'hotels', label: 'Hotels', icon: Hotel },
+    { id: 'places', label: 'Places', icon: Mountain },
+    { id: 'restaurants', label: 'Restaurants', icon: Utensils },
+    { id: 'activities', label: 'Activities', icon: Camera },
+    { id: 'transport', label: 'Transport', icon: Car },
+  ];
+
+  const recentSearches = [
+    'Everest Base Camp',
+    'Pokhara Hotels',
+    'Kathmandu Restaurants',
+    'Annapurna Trek'
+  ];
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const scrollToDiscover = () => {
+    // If not on home page, navigate to home first
+    if (activeTab !== 'home') {
+      onTabChange('home');
+      // Use setTimeout to wait for the home page to render, then scroll
+      setTimeout(() => {
+        const discoverSection = document.getElementById('popular-destinations-section');
+        if (discoverSection) {
+          discoverSection.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 100);
     } else {
-      return { status: 'Check Updates', color: 'text-red-500' };
+      // Already on home page, just scroll
+      const discoverSection = document.getElementById('popular-destinations-section');
+      if (discoverSection) {
+        discoverSection.scrollIntoView({ behavior: 'smooth' });
+      }
     }
   };
 
-  const safetyStatus = getSafetyStatus();
+  const handleSearchExpand = () => {
+    setIsSearchExpanded(true);
+    setSearchFocused(true);
+  };
+
+  const handleSearchCollapse = () => {
+    setIsSearchExpanded(false);
+    setSearchFocused(false);
+  };
 
   return (
-    <div className="border-b bg-card">
-      <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between py-4">
-          {/* Logo and Brand */}
-          <div className="flex items-center space-x-3">
-            <div className="w-8 h-8 bg-nepal-crimson rounded-lg flex items-center justify-center">
-              <MapPin className="w-5 h-5 text-white" />
+    <>
+      <style>{`
+        .filter-green {
+          filter: brightness(0) saturate(100%) invert(26%) sepia(89%) saturate(1583%) hue-rotate(95deg) brightness(96%) contrast(106%);
+        }
+        .filter-green-hover:hover {
+          filter: brightness(0) saturate(100%) invert(26%) sepia(89%) saturate(1583%) hue-rotate(95deg) brightness(96%) contrast(106%);
+        }
+        .rotate-mountain {
+          transform: rotate(-45deg);
+        }
+        .liquid-glass {
+          background: rgba(0, 0, 0, 0.75);
+          backdrop-filter: blur(20px) saturate(200%);
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          position: relative;
+          overflow: hidden;
+        }
+        .liquid-glass::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background-image: 
+            radial-gradient(circle at 25% 25%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+            radial-gradient(circle at 75% 75%, rgba(255, 255, 255, 0.05) 0%, transparent 50%),
+            url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+          pointer-events: none;
+          z-index: 1;
+        }
+        .liquid-glass > * {
+          position: relative;
+          z-index: 2;
+        }
+      `}</style>
+      {/* Unified Navigation Bar */}
+      <div className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ease-out ${
+        isScrolled 
+          ? 'bg-white/95 backdrop-blur-lg shadow-lg border-b border-gray-200' 
+          : 'bg-transparent'
+      }`}>
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="flex items-center justify-between h-16">
+            {/* Logo */}
+            <div 
+              onClick={() => onTabChange('home')}
+              className="cursor-pointer p-2 transition-all duration-300"
+            >
+              <img 
+                src="/compass.svg" 
+                alt="Wanderly" 
+                className={`w-8 h-8 transition-all duration-300 rotate-mountain ${
+                  activeTab === 'home' ? 'filter-green' : 'filter-green-hover'
+                }`}
+              />
             </div>
-            <div>
-              <h1 className="text-xl font-bold text-nepal-crimson">Saathi</h1>
-              <p className="text-xs text-muted-foreground">Travel Nepal Authentically</p>
-            </div>
-          </div>
 
-          {/* User Profile and Status */}
-          <div className="flex items-center space-x-4">
-            {/* Safety Status - Hidden on small screens */}
-            <div className="hidden lg:flex items-center space-x-1">
-              <Shield className={`w-4 h-4 ${safetyStatus.color}`} />
-              <span className={`text-sm ${safetyStatus.color}`}>{safetyStatus.status}</span>
-            </div>
-
-            {/* Online/Offline Status */}
-            <div className="flex items-center space-x-1">
-              {isOnline ? (
-                <>
-                  <Wifi className="w-4 h-4 text-nepal-prayer-flag-green" />
-                  <span className="text-sm text-nepal-prayer-flag-green hidden sm:inline">Online</span>
-                </>
-              ) : (
-                <>
-                  <WifiOff className="w-4 h-4 text-nepal-saffron" />
-                  <span className="text-sm text-nepal-saffron hidden sm:inline">Offline</span>
-                </>
-              )}
-            </div>
-
-            {/* User Profile */}
-            <div className="flex items-center space-x-2">
-              <div className="text-right hidden sm:block">
-                <p className="text-sm font-medium">{profile.name}</p>
-                <div className="flex items-center gap-1 text-xs text-muted-foreground">
-                  <Badge 
-                    variant="outline" 
-                    className={`text-xs ${
-                      profile.user_type === 'local_guide' 
-                        ? 'text-nepal-saffron border-nepal-saffron' 
-                        : 'text-nepal-royal-blue border-nepal-royal-blue'
-                    }`}
-                  >
-                    {profile.user_type === 'local_guide' ? 'Local Guide' : 'Traveler'}
-                  </Badge>
-                  {profile.verified && (
-                    <Shield className="w-3 h-3 text-nepal-prayer-flag-green" />
+            {/* Center Search Bar - Flows up from hero when scrolled */}
+            <div className={`flex-1 max-w-2xl mx-8 relative transition-all duration-700 ease-out ${
+              isScrolled 
+                ? 'opacity-100 translate-y-0 scale-100' 
+                : 'opacity-0 translate-y-8 scale-95 pointer-events-none'
+            }`}>
+              <div className={`transition-all duration-300 ${
+                isSearchExpanded ? 'scale-105' : 'scale-100'
+              }`}>
+                <div className="relative">
+                  <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5 z-10" />
+                  <Input
+                    placeholder="Search destinations, places, activities..."
+                    value={searchQuery}
+                    onChange={(e) => onSearchChange(e.target.value)}
+                    onFocus={handleSearchExpand}
+                    className="pl-12 pr-4 py-3 transition-all duration-300 rounded-full text-lg shadow-sm border border-gray-200 bg-white focus:ring-2 focus:ring-green-500"
+                  />
+                  {isSearchExpanded && (
+                    <Button
+                      onClick={handleSearchCollapse}
+                      variant="ghost"
+                      size="sm"
+                      className="absolute right-2 top-1/2 transform -translate-y-1/2 p-2 rounded-full hover:bg-gray-100"
+                    >
+                      <X className="w-4 h-4" />
+                    </Button>
                   )}
                 </div>
-              </div>
-              
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={() => onTabChange('profile')}
-                className="p-1"
-              >
-                <Avatar className="w-8 h-8">
-                  <AvatarFallback className="bg-nepal-mountain-blue text-white">
-                    {profile.name.split(' ').map(n => n[0]).join('')}
-                  </AvatarFallback>
-                </Avatar>
-              </Button>
-            </div>
-          </div>
-        </div>
 
-        {/* Navigation Tabs */}
-        <Tabs value={activeTab} onValueChange={onTabChange} className="w-full">
-          <TabsList className="grid w-full grid-cols-6 h-auto p-1">
-            {tabs.map((tab) => {
-              const Icon = tab.icon;
-              return (
-                <TabsTrigger
-                  key={tab.id}
-                  value={tab.id}
-                  className="flex flex-col items-center space-y-1 py-2 data-[state=active]:bg-nepal-crimson data-[state=active]:text-white relative"
-                >
-                  <div className="relative">
-                    <Icon className="w-4 h-4" />
-                    {tab.id === 'alerts' && hasNewAlerts && (
-                      <div className="absolute -top-1 -right-1 w-2 h-2 bg-nepal-gold rounded-full" />
-                    )}
-                    {tab.id === 'help' && !isOnline && (
-                      <div className="absolute -top-1 -right-1 w-2 h-2 bg-nepal-saffron rounded-full" />
-                    )}
+                {/* Expanded Search Panel */}
+                <div className={`absolute top-full left-0 right-0 mt-2 bg-white rounded-2xl shadow-xl border border-gray-200 overflow-hidden transition-all duration-300 transform origin-top ${
+                  isSearchExpanded ? 'scale-y-100 opacity-100' : 'scale-y-0 opacity-0 pointer-events-none'
+                }`}>
+                  <div className="p-6">
+                    {/* Category Filters */}
+                    <div className="mb-6">
+                      <h4 className="text-sm font-medium text-gray-700 mb-3">Categories</h4>
+                      <div className="flex flex-wrap gap-2">
+                        {categories.map((category) => {
+                          const IconComponent = category.icon;
+                          return (
+                            <Button
+                              key={category.id}
+                              variant="outline"
+                              size="sm"
+                              className="rounded-full px-4 py-2 text-sm border-gray-200 hover:bg-gray-100 hover:border-gray-400 hover:text-gray-800"
+                            >
+                              <IconComponent className="w-4 h-4 mr-2" />
+                              {category.label}
+                            </Button>
+                          );
+                        })}
+                      </div>
+                    </div>
+
+                    {/* Recent Searches */}
+                    <div>
+                      <h4 className="text-sm font-medium text-gray-700 mb-3">Recent Searches</h4>
+                      <div className="space-y-2">
+                        {recentSearches.map((search, index) => (
+                          <Button
+                            key={index}
+                            variant="ghost"
+                            className="w-full justify-start px-3 py-2 text-left hover:bg-gray-50 rounded-lg"
+                            onClick={() => onSearchChange(search)}
+                          >
+                            <Clock className="w-4 h-4 mr-3 text-gray-400" />
+                            <span className="text-gray-700">{search}</span>
+                          </Button>
+                        ))}
+                      </div>
+                    </div>
                   </div>
-                  <span className="text-xs hidden sm:inline">{tab.label}</span>
-                </TabsTrigger>
-              );
-            })}
-          </TabsList>
-        </Tabs>
+                </div>
+              </div>
+            </div>
 
-        {/* Quick Status Bar - Mobile Only */}
-        <div className="flex sm:hidden items-center justify-between py-2 text-xs text-muted-foreground">
-          <div className="flex items-center gap-2">
-            <span>{profile.name}</span>
-            {profile.verified && <Shield className="w-3 h-3 text-nepal-prayer-flag-green" />}
-          </div>
-          <div className="flex items-center gap-2">
-            <span className={safetyStatus.color}>{safetyStatus.status}</span>
-            <span>•</span>
-            <span className={isOnline ? 'text-nepal-prayer-flag-green' : 'text-nepal-saffron'}>
-              {isOnline ? 'Online' : 'Offline'}
-            </span>
+            {/* Right Navigation */}
+            <div className="flex items-center gap-3">
+              {!isAuthenticated ? (
+                <>
+                  <Button
+                    variant="ghost"
+                    className={`transition-all duration-300 px-4 py-2 rounded-xl ${
+                      isScrolled 
+                        ? 'text-gray-700 hover:text-gray-900 hover:bg-gray-100' 
+                        : 'text-white hover:text-gray-200 hover:bg-white/10'
+                    }`}
+                  >
+                    Contact
+                  </Button>
+                  <Button
+                    onClick={onLogin}
+                    variant="ghost"
+                    className={`transition-all duration-300 px-4 py-2 rounded-xl ${
+                      isScrolled 
+                        ? 'text-gray-700 hover:text-gray-900 hover:bg-gray-100' 
+                        : 'text-white hover:text-gray-200 hover:bg-white/10'
+                    }`}
+                  >
+                    Login
+                  </Button>
+                  <Button
+                    variant="outline"
+                    className={`px-4 py-2 rounded-xl transition-all duration-300 ${
+                      isScrolled 
+                        ? 'bg-gray-800 border-gray-800 text-white hover:bg-gray-900' 
+                        : 'bg-white/10 border-white/30 text-white hover:bg-white hover:text-gray-900 backdrop-blur-sm'
+                    }`}
+                  >
+                    Sign Up
+                  </Button>
+                </>
+              ) : (
+                <div className="flex items-center gap-3">
+                  <Button
+                    variant="ghost"
+                    className={`transition-all duration-300 px-4 py-2 rounded-xl ${
+                      isScrolled 
+                        ? 'text-gray-700 hover:text-gray-900 hover:bg-gray-100' 
+                        : 'text-white hover:text-gray-200 hover:bg-white/10'
+                    }`}
+                  >
+                    Contact
+                  </Button>
+                  <Avatar className="w-10 h-10 ring-2 ring-white/30">
+                    <AvatarFallback className="bg-gray-800 text-white text-sm font-medium">
+                      {profile?.name.split(' ').map(n => n[0]).join('') || 'U'}
+                    </AvatarFallback>
+                  </Avatar>
+                  <Button
+                    onClick={onLogout}
+                    variant="ghost"
+                    className={`transition-all duration-300 px-4 py-2 rounded-xl ${
+                      isScrolled 
+                        ? 'text-gray-700 hover:text-red-600 hover:bg-gray-100' 
+                        : 'text-white hover:text-red-400 hover:bg-white/10'
+                    }`}
+                  >
+                    <LogOut className="w-4 h-4 mr-2" />
+                    Logout
+                  </Button>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>
-    </div>
+
+      {/* Bottom Floating Navigation */}
+      <div className="fixed bottom-8 left-1/2 transform -translate-x-1/2 z-50">
+        <div className="liquid-glass rounded-3xl shadow-xl p-1.5">
+          <div className="flex items-center gap-0.5">
+            {/* Discover Button */}
+            <button
+              onClick={scrollToDiscover}
+              className="flex flex-col items-center gap-0 px-2.5 py-1 rounded-2xl transition-all duration-300 text-white min-w-[2.5rem] outline-none"
+            >
+              <MapPin className="w-4 h-4 transition-all duration-300 filter-green-hover" />
+              <span className="text-[10px] font-medium text-gray-300">Discover</span>
+            </button>
+
+            {tabs.map((tab) => {
+              const Icon = tab.icon;
+              const isActive = activeTab === tab.id;
+              return (
+                <button
+                  key={tab.id}
+                  onClick={() => onTabChange(tab.id)}
+                  className="flex flex-col items-center gap-0 px-2.5 py-1 rounded-2xl transition-all duration-300 min-w-[2.5rem] text-white outline-none"
+                >
+                  <div className="relative">
+                    <Icon className={`transition-all duration-300 ${
+                      isActive ? 'w-5 h-5 filter-green' : 'w-4 h-4 filter-green-hover'
+                    }`} />
+                  </div>
+                  <span className="text-[10px] font-medium text-gray-300 transition-all duration-200">
+                    {tab.label}
+                  </span>
+                </button>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+
+      {/* Scroll to Top Button */}
+      <div className={`fixed bottom-8 right-8 z-50 transition-all duration-300 ${
+        isScrolled ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4 pointer-events-none'
+      }`}>
+        <Button
+          onClick={scrollToTop}
+          className="w-12 h-12 bg-gray-800 hover:bg-gray-900 text-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300"
+        >
+          <ArrowUp className="w-5 h-5" />
+        </Button>
+      </div>
+
+      {/* Overlay for expanded search */}
+      {isSearchExpanded && (
+        <div 
+          className="fixed inset-0 bg-black/20 z-40 transition-opacity duration-300"
+          onClick={handleSearchCollapse}
+        />
+      )}
+    </>
   );
 }

@@ -1,59 +1,33 @@
-/* Import Modern Typography */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&family=Noto+Sans+Devanagari:wght@300;400;500;600;700&display=swap');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+/* Import Modern Typography */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&family=Noto+Sans+Devanagari:wght@300;400;500;600;700&display=swap');
+
 /* 🎨 NEW DESIGN SYSTEM - Clean, Responsive, Accessible */
 :root {
-  /* Base colors */
-  --clr-dark-a0: #000000;
-  --clr-light-a0: #ffffff;
-
-  /* Theme primary colors - Light Mode */
-  --clr-primary-a0: #f3f4f6;
-  --clr-primary-a10: #e5e7eb;
-  --clr-primary-a20: #d1d5db;
-  --clr-primary-a30: #9ca3af;
-  --clr-primary-a40: #6b7280;
-  --clr-primary-a50: #4b5563;
-
-  /* Theme surface colors - Light Mode */
-  --clr-surface-a0: #ffffff;
-  --clr-surface-a10: #f9fafb;
-  --clr-surface-a20: #f3f4f6;
-  --clr-surface-a30: #e5e7eb;
-  --clr-surface-a40: #d1d5db;
-  --clr-surface-a50: #9ca3af;
-
-  /* Theme tonal surface colors - Light Mode */
-  --clr-surface-tonal-a0: #f9fafb;
-  --clr-surface-tonal-a10: #f3f4f6;
-  --clr-surface-tonal-a20: #e5e7eb;
-  --clr-surface-tonal-a30: #d1d5db;
-  --clr-surface-tonal-a40: #9ca3af;
-  --clr-surface-tonal-a50: #6b7280;
-
-  /* Legacy variables for compatibility */
-  --background: var(--clr-surface-tonal-a0);
-  --surface: var(--clr-surface-a0);
-  --primary: #374151;
-  --secondary: #6b7280;
-  --accent: #FDBA74;
-  --muted: var(--clr-surface-a20);
-  --text: #1F2937;
-  --text-muted: #6B7280;
-  --border: var(--clr-surface-a30);
-  --ring: #374151;
-  --input: var(--clr-surface-a0);
+  /* Base System Colors */
+  --background: #F9FAFB; /* soft neutral base */
+  --surface: #FFFFFF; /* cards, inputs */
+  --primary: #DC143C; /* bold accent (Crimson) */
+  --secondary: #0052CC; /* supportive blue */
+  --accent: #FDBA74; /* warm gold/orange */
+  --muted: #E2E8F0; /* separators, muted backgrounds */
+  --text: #1F2937; /* body text */
+  --text-muted: #6B7280; /* less emphasis */
   
-  /* Cultural Nepal Colors */
-  --nepal-green: #374151;
-  --nepal-emerald: #6b7280;
+  /* Additional UI Colors */
+  --border: #D1D5DB;
+  --ring: #FDBA74;
+  --input: #FFFFFF;
+  
+  /* Cultural Nepal Colors (Optional) */
+  --nepal-crimson: #DC143C;
+  --nepal-blue: #0052CC;
   --temple-gold: #FDBA74;
-  --himalayan-snow: var(--clr-surface-tonal-a0);
-  --mountain-mist: var(--clr-surface-tonal-a10);
+  --himalayan-snow: #F9FAFB;
+  --mountain-mist: #E8F4FD;
   
   /* Layout */
   --radius: 0.75rem;
@@ -74,95 +48,27 @@
   --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
   --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
   --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
-  
-  /* Animation Variables */
-  --animation-duration-fast: 150ms;
-  --animation-duration-normal: 300ms;
-  --animation-duration-slow: 500ms;
-  --animation-easing: cubic-bezier(0.4, 0, 0.2, 1);
-  --animation-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
 
 /* Dark Mode */
 .dark {
-  /* Theme primary colors - Dark Mode */
-  --clr-primary-a0: #fcf8de;
-  --clr-primary-a10: #fcf9e2;
-  --clr-primary-a20: #fdfae5;
-  --clr-primary-a30: #fdfae9;
-  --clr-primary-a40: #fdfbed;
-  --clr-primary-a50: #fefcf0;
-
-  /* Theme surface colors - Dark Mode */
-  --clr-surface-a0: #2d4f2b;
-  --clr-surface-a10: #436140;
-  --clr-surface-a20: #587355;
-  --clr-surface-a30: #6f866b;
-  --clr-surface-a40: #859982;
-  --clr-surface-a50: #9dad9a;
-
-  /* Theme tonal surface colors - Dark Mode */
-  --clr-surface-tonal-a0: #405e3b;
-  --clr-surface-tonal-a10: #546f4e;
-  --clr-surface-tonal-a20: #687f63;
-  --clr-surface-tonal-a30: #7c9177;
-  --clr-surface-tonal-a40: #91a28d;
-  --clr-surface-tonal-a50: #a6b4a3;
-
-  /* Update legacy variables for dark mode */
-  --background: var(--clr-surface-a0);
-  --surface: var(--clr-surface-a10);
-  --primary: var(--clr-primary-a30);
-  --secondary: var(--clr-primary-a20);
-  --accent: #FDBA74;
-  --muted: var(--clr-surface-a20);
-  --text: var(--clr-primary-a50);
-  --text-muted: var(--clr-surface-a50);
-  --border: var(--clr-surface-a30);
-  --ring: var(--clr-primary-a30);
-  --input: var(--clr-surface-a10);
-  
-  /* Cultural Nepal Colors - Dark Mode */
-  --nepal-green: #374151;
-  --nepal-emerald: #6b7280;
-  --temple-gold: #FDBA74;
-  --himalayan-snow: var(--clr-surface-tonal-a0);
-  --mountain-mist: var(--clr-surface-tonal-a10);
-}
-
-/* Utility Classes for New Color System */
-@layer utilities {
-  /* Primary Color Utilities */
-  .bg-primary { background-color: var(--clr-primary-a50); color: var(--clr-surface-a0); }
-  .bg-primary-light { background-color: var(--clr-primary-a0); color: var(--clr-surface-a50); }
-  .text-primary { color: var(--clr-primary-a30); }
-  .text-primary-light { color: var(--clr-primary-a10); }
-  .border-primary { border-color: var(--clr-primary-a30); }
-
-  /* Surface Color Utilities */
-  .bg-surface { background-color: var(--clr-surface-a0); }
-  .bg-surface-elevated { background-color: var(--clr-surface-a10); }
-  .bg-surface-muted { background-color: var(--clr-surface-a20); }
-  .text-surface { color: var(--clr-surface-a50); }
-  .border-surface { border-color: var(--clr-surface-a30); }
-
-  /* Tonal Surface Color Utilities */
-  .bg-tonal { background-color: var(--clr-surface-tonal-a0); }
-  .bg-tonal-elevated { background-color: var(--clr-surface-tonal-a10); }
-  .bg-tonal-muted { background-color: var(--clr-surface-tonal-a20); }
-  .text-tonal { color: var(--clr-surface-tonal-a40); }
-  .border-tonal { border-color: var(--clr-surface-tonal-a30); }
+  --background: #0E1A24;
+  --surface: #16222E;
+  --primary: #FF4B68; /* brighter for dark mode */
+  --secondary: #4C9AFF; /* brighter blue */
+  --accent: #F97316; /* warm orange */
+  --muted: #334155;
+  --text: #E5E7EB;
+  --text-muted: #9CA3AF;
+  --border: #243447;
+  --input: #16222E;
+  --ring: #F97316;
 }
 
 /* Base Styles */
 @layer base {
   * {
     @apply border-border;
-  }
-  
-  html, body {
-    margin: 0;
-    padding: 0;
   }
   
   body {
@@ -481,150 +387,6 @@
     0%, 100% { transform: translateY(0); }
     50% { transform: translateY(-5px); }
   }
-  
-  @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-  }
-  
-  @keyframes slideUp {
-    from { 
-      opacity: 0; 
-      transform: translateY(20px); 
-    }
-    to { 
-      opacity: 1; 
-      transform: translateY(0); 
-    }
-  }
-  
-  @keyframes scaleIn {
-    from { 
-      opacity: 0; 
-      transform: scale(0.9); 
-    }
-    to { 
-      opacity: 1; 
-      transform: scale(1); 
-    }
-  }
-  
-  @keyframes shimmer {
-    0% { background-position: -200% 0; }
-    100% { background-position: 200% 0; }
-  }
-  
-  @keyframes pulse {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.7; }
-  }
-  
-  @keyframes rotate {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
-  }
-  
-  @keyframes slideDown {
-    from { 
-      opacity: 0; 
-      transform: translateY(-10px); 
-    }
-    to { 
-      opacity: 1; 
-      transform: translateY(0); 
-    }
-  }
-}
-
-/* 🎨 Animation Classes */
-@layer utilities {
-  .animate-fade-in {
-    animation: fadeIn var(--animation-duration-normal) var(--animation-easing);
-  }
-  
-  .animate-slide-up {
-    animation: slideUp var(--animation-duration-normal) var(--animation-easing);
-  }
-  
-  .animate-slide-down {
-    animation: slideDown var(--animation-duration-normal) var(--animation-easing);
-  }
-  
-  .animate-scale-in {
-    animation: scaleIn var(--animation-duration-normal) var(--animation-easing);
-  }
-  
-  .animate-bounce-gentle {
-    animation: gentleBounce 2s ease-in-out infinite;
-  }
-  
-  .animate-pulse-slow {
-    animation: pulse 3s ease-in-out infinite;
-  }
-  
-  .animate-spin-slow {
-    animation: rotate 10s linear infinite;
-  }
-  
-  .loading-shimmer {
-    background: linear-gradient(
-      90deg,
-      var(--muted) 0%,
-      rgba(255, 255, 255, 0.8) 50%,
-      var(--muted) 100%
-    );
-    background-size: 200% 100%;
-    animation: shimmer 1.5s ease-in-out infinite;
-  }
-  
-  /* Hover Effects */
-  .hover-lift {
-    transition: transform var(--animation-duration-normal) var(--animation-easing);
-  }
-  
-  .hover-lift:hover {
-    transform: translateY(-4px);
-  }
-  
-  .hover-glow {
-    transition: box-shadow var(--animation-duration-normal) var(--animation-easing);
-  }
-  
-  .hover-glow:hover {
-    box-shadow: 0 0 20px rgba(220, 20, 60, 0.3);
-  }
-  
-  .hover-scale {
-    transition: transform var(--animation-duration-normal) var(--animation-easing);
-  }
-  
-  .hover-scale:hover {
-    transform: scale(1.02);
-  }
-  
-  /* Interactive States */
-  .button-press {
-    transition: all var(--animation-duration-fast) var(--animation-easing);
-  }
-  
-  .button-press:active {
-    transform: scale(0.98);
-  }
-  
-  /* Text Effects */
-  .text-shimmer {
-    background: linear-gradient(
-      90deg,
-      var(--text) 0%,
-      var(--primary) 50%,
-      var(--text) 100%
-    );
-    background-size: 200% 100%;
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    animation: shimmer 2s ease-in-out infinite;
-  }
 }
 
 /* 🎨 Nepal Cultural Gradients */
@@ -639,31 +401,5 @@
   
   .sunset-himalaya {
     background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 50%, var(--secondary) 100%);
-  }
-
-  /* Animation for smooth section transitions */
-  @keyframes fadeInUp {
-    from {
-      opacity: 0;
-      transform: translateY(30px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  .animate-fadeInUp {
-    animation: fadeInUp 0.8s ease-out forwards;
-  }
-
-  /* Smooth scroll behavior for auto-scroll sections */
-  .scroll-mt-16 {
-    scroll-margin-top: 4rem;
-  }
-
-  /* Enhanced smooth scrolling */
-  html {
-    scroll-behavior: smooth;
   }
 }

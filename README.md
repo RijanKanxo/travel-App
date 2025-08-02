@@ -1,41 +1,50 @@
-# 🇳🇵 Wanderly - Nepal Travel Platform
+# �️ Wanderly - Nepal Travel Platform UI
 
-A modern, responsive travel platform built with React and TypeScript, designed to connect travelers with authentic local experiences in Nepal.
-
-![Wanderly Preview](https://via.placeholder.com/800x400/A7C957/ffffff?text=Wanderly+Nepal+Travel+Platform)
+A culturally authentic, accessible, and beautifully designed travel platform showcasing the beauty and heritage of Nepal. Built with modern web technologies and following WCAG accessibility guidelines.
 
 ## ✨ Features
 
-- 🗺️ **Discovery Platform** - Find authentic local experiences and verified hosts
-- 📖 **Travel Journal** - Community-driven travel stories and safety guides
-- 🛒 **Local Marketplace** - Connect with verified local service providers
-- 📱 **Offline Capabilities** - Download guides for offline access
-- 🆘 **Safety Features** - Real-time alerts and Q&A with locals
-- 🌙 **Dark Mode** - Full dark/light theme support
-- 📱 **Mobile-First Design** - Responsive across all devices
+### 🎨 **Cultural Design**
+- **Nepal-inspired color palette**: Crimson (#DC143C), Blue (#003893), and Temple Gold (#C59F00)
+- **Postcard-style cards**: Museum exhibition-inspired design for travel experiences
+- **Cultural authenticity**: Himalayan gradients, prayer flag colors, and traditional elements
 
-## 🛠️ Tech Stack
+### ♿ **Accessibility First**
+- **WCAG AA/AAA compliant**: High contrast ratios and accessible color combinations
+- **Keyboard navigation**: Full support for keyboard-only users
+- **Screen reader friendly**: Proper ARIA labels and semantic markup
+- **Focus management**: Clear focus indicators and logical tab order
+- **Responsive typography**: Fluid font sizes using clamp() functions
+
+### 🌄 **Travel Experiences**
+- **Everest Base Camp Trek**: 14-day adventure to the world's highest peak
+- **Kathmandu Cultural Tour**: 3-day heritage exploration of ancient temples
+- **Annapurna Circuit**: 21-day trek through diverse landscapes
+- **Chitwan Safari**: 2-day wildlife experience in the jungle
+- **Pokhara Lakes**: 4-day peaceful retreat by pristine waters
+- **Lumbini Pilgrimage**: 2-day spiritual journey to Buddha's birthplace
+
+## � Tech Stack
 
 - **Frontend**: React 18 + TypeScript
-- **Styling**: Tailwind CSS + shadcn/ui components
 - **Build Tool**: Vite
-- **Backend**: Supabase (Database, Auth, Serverless Functions)
+- **Styling**: Tailwind CSS + shadcn/ui
+- **Accessibility**: WCAG 2.1 AA/AAA compliant
+- **Typography**: Inter + Noto Sans Devanagari fonts
 - **Icons**: Lucide React
-- **State Management**: React Hooks
 
-## 🚀 Quick Start
+## 🛠️ Getting Started
 
 ### Prerequisites
-
 - Node.js 18+ 
-- npm or yarn
+- npm or yarn package manager
 
 ### Installation
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/RijanKanxo/travel-App.git
-   cd travel-App
+   git clone <repository-url>
+   cd nepal-travel-platform-ui
    ```
 
 2. **Install dependencies**
@@ -43,10 +52,135 @@ A modern, responsive travel platform built with React and TypeScript, designed t
    npm install
    ```
 
-3. **Set up environment variables**
+3. **Start development server**
    ```bash
-   cp .env.example .env.local
+   npm run dev
    ```
+
+4. **Open in browser**
+   ```
+   http://localhost:5173
+   ```
+
+### Build for Production
+
+```bash
+npm run build
+npm run preview
+```
+
+## 🎯 Design System
+
+### Color Palette
+
+#### Primary Colors
+- **Nepal Crimson**: `#DC143C` - Primary actions, highlights
+- **Nepal Blue**: `#003893` - Secondary actions, trust elements
+- **Temple Gold**: `#C59F00` - Accent color, success states
+
+#### Cultural Colors
+- **Himalayan Snow**: `#F8F9FA` - Clean backgrounds
+- **Mountain Mist**: `#E8F4FD` - Subtle backgrounds
+- **Alpine Blue**: `#4A90E2` - Information elements
+- **Prayer Flag Colors**: Red, Yellow, Green, Blue variants
+
+### Typography
+- **Primary Font**: Inter (Modern, readable)
+- **Nepal Font**: Noto Sans Devanagari (Cultural authenticity)
+- **Responsive Scaling**: clamp() functions for optimal readability
+
+### Accessibility Features
+
+#### Color Contrast
+- **Text on backgrounds**: Minimum 4.5:1 ratio (WCAG AA)
+- **Large text**: Minimum 3:1 ratio (WCAG AA)
+- **Interactive elements**: Enhanced contrast for better usability
+
+#### Keyboard Navigation
+- **Tab order**: Logical flow through interactive elements
+- **Focus indicators**: Clear visual feedback with golden outline
+- **Skip links**: Quick navigation for screen readers
+
+#### Screen Readers
+- **ARIA labels**: Descriptive labels for all interactive elements
+- **Semantic markup**: Proper HTML structure (main, section, article)
+- **Image alt text**: Descriptive alternative text for all images
+
+## 🌍 Cultural Elements
+
+### Authentic Imagery
+- **Himalayan landscapes**: Everest, Annapurna, sacred peaks
+- **Cultural heritage**: Temples, stupas, traditional architecture
+- **Local life**: Markets, festivals, traditional practices
+
+### Educational Content
+- **Cultural insights**: History, traditions, and local customs
+- **Practical information**: Best times to visit, cultural etiquette
+- **Sustainable travel**: Responsible tourism practices
+
+## 📱 Responsive Design
+
+### Breakpoints
+- **Mobile**: 320px - 768px
+- **Tablet**: 768px - 1024px
+- **Desktop**: 1024px+
+- **Large screens**: 1400px+
+
+### Mobile-First Approach
+- Progressive enhancement from mobile to desktop
+- Touch-friendly interactions (minimum 44px touch targets)
+- Optimized images and loading for mobile networks
+
+## 🧪 Testing
+
+### Accessibility Testing
+- **Automated**: axe-core integration
+- **Manual**: Keyboard navigation testing
+- **Screen readers**: NVDA, JAWS, VoiceOver compatibility
+
+### Browser Support
+- **Modern browsers**: Chrome 90+, Firefox 88+, Safari 14+, Edge 90+
+- **Mobile browsers**: iOS Safari 14+, Chrome Mobile 90+
+
+## 🎨 Customization
+
+### Tailwind Configuration
+The `tailwind.config.js` includes:
+- Nepal-inspired color palette
+- Custom utilities for accessibility
+- Responsive typography scales
+- Cultural design tokens
+
+### Theme Customization
+- CSS custom properties for color system
+- Dark/light mode support
+- Cultural color variants
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Follow accessibility guidelines
+4. Test with screen readers
+5. Submit a pull request
+
+## 🙏 Acknowledgments
+
+- **Nepal Tourism Board** - Cultural guidance and inspiration
+- **shadcn/ui** - Beautiful and accessible component library
+- **Tailwind CSS** - Utility-first CSS framework
+- **Lucide** - Beautiful icon library
+- **WCAG Guidelines** - Web accessibility standards
+
+---
+
+**Made with ❤️ for Nepal** 🇳🇵
+
+*Celebrating the beauty, culture, and accessibility of Nepal's travel experiences*
    
    Update `.env.local` with your Supabase credentials:
    ```env

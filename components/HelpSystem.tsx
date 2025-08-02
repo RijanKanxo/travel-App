@@ -160,7 +160,7 @@ export function HelpSystem() {
       case 'emergency': return 'bg-red-500';
       case 'high': return 'bg-orange-500';
       case 'medium': return 'bg-yellow-500';
-      case 'low': return 'bg-green-500';
+      case 'low': return 'bg-gray-500';
       default: return 'bg-gray-500';
     }
   };
