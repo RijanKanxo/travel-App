@@ -208,7 +208,7 @@ export function HelpSystem() {
         </Card>
         <Card>
           <CardContent className="p-4 text-center">
-            <div className="text-2xl font-bold text-nepal-royal-blue">< 2h</div>
+            <div className="text-2xl font-bold text-primary">&lt; 2h</div>
             <div className="text-sm text-muted-foreground">Avg Response Time</div>
           </CardContent>
         </Card>

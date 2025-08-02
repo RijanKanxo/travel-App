@@ -1,9 +1,8 @@
 import { useState, useEffect } from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from './components/ui/card';
+import { Card, CardContent } from './components/ui/card';
 import { Badge } from './components/ui/badge';
 import { Button } from './components/ui/button';
 import { Input } from './components/ui/input';
-import { Separator } from './components/ui/separator';
 import { cn } from './components/ui/utils';
 import { 
   MapPin, 
@@ -26,11 +25,7 @@ import {
   Clock,
   Users,
   CheckCircle,
-  TrendingUp,
-  Globe,
-  Menu,
-  X,
-  Settings
+  Globe
 } from 'lucide-react';
 import { ImageWithFallback } from './components/figma/ImageWithFallback';
 import { DarkModeToggle } from './components/DarkModeToggle';
