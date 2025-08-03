@@ -26,6 +26,7 @@ function App() {
   const [searchQuery, setSearchQuery] = useState('');
   const [isScrolled, setIsScrolled] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [isSearchExpanded, setIsSearchExpanded] = useState(false);
   const popularSectionRef = useRef<HTMLDivElement>(null);
 
   // Check for existing authentication on app load
@@ -62,7 +63,8 @@ function App() {
       setIsScrolled(scrollY > 200);
 
       // Auto-scroll to popular destinations when user starts scrolling
-      if (scrollY > 30 && scrollY < 250 && !hasAutoScrolled && activeTab === 'home') {
+      // BUT ONLY if search bar is NOT expanded (for better UX)
+      if (scrollY > 30 && scrollY < 250 && !hasAutoScrolled && activeTab === 'home' && !isSearchExpanded) {
         hasAutoScrolled = true;
         
         // Clear any existing timeout
@@ -96,7 +98,7 @@ function App() {
         clearTimeout(scrollTimeout);
       }
     };
-  }, [activeTab]);
+  }, [activeTab, isSearchExpanded]); // Added isSearchExpanded dependency
 
   const handleLogin = () => {
     // Temporarily disabled - will add authentication back
@@ -130,6 +132,7 @@ function App() {
             searchQuery={searchQuery}
             setSearchQuery={setSearchQuery}
             isVisible={!isLoading}
+            onSearchExpandedChange={setIsSearchExpanded}
           />
         );
       case 'journal':
@@ -146,6 +149,7 @@ function App() {
             searchQuery={searchQuery}
             setSearchQuery={setSearchQuery}
             isVisible={!isLoading}
+            onSearchExpandedChange={setIsSearchExpanded}
           />
         );
     }
@@ -198,6 +202,7 @@ function App() {
           searchQuery={searchQuery}
           onSearchChange={setSearchQuery}
           isScrolled={isScrolled}
+          onSearchExpandedChange={setIsSearchExpanded}
         />
       )}
 

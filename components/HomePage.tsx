@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { 
   Search,
   Star,
@@ -40,6 +40,7 @@ interface HomePageProps {
   searchQuery: string;
   setSearchQuery: (query: string) => void;
   isVisible: boolean;
+  onSearchExpandedChange?: (expanded: boolean) => void;
 }
 
 const HomePage: React.FC<HomePageProps> = ({ 
@@ -47,13 +48,75 @@ const HomePage: React.FC<HomePageProps> = ({
   onSearch, 
   searchQuery, 
   setSearchQuery,
-  isVisible 
+  isVisible,
+  onSearchExpandedChange
 }) => {
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [favorites, setFavorites] = useState<number[]>([]);
   const [showFilters, setShowFilters] = useState(false);
+  const [isSearchExpanded, setIsSearchExpanded] = useState(false);
+  const [selectedPriceRange, setSelectedPriceRange] = useState('');
+  const [selectedDuration, setSelectedDuration] = useState('');
+  const [selectedDifficulty, setSelectedDifficulty] = useState('');
+
+  const searchRef = useRef<HTMLDivElement>(null);
 
   const categories = ['All', 'Trekking', 'Culture', 'Adventure', 'Pilgrimage', 'Nature'];
+  
+  const searchCategories = [
+    { id: 'all', label: 'All', icon: Search },
+    { id: 'hotels', label: 'Hotels', icon: Hotel },
+    { id: 'places', label: 'Places', icon: MapPin },
+    { id: 'restaurants', label: 'Restaurants', icon: Users },
+    { id: 'activities', label: 'Activities', icon: Camera },
+    { id: 'transport', label: 'Transport', icon: Plane },
+  ];
+
+  const recentSearches = [
+    'Everest Base Camp',
+    'Pokhara Hotels', 
+    'Kathmandu Restaurants',
+    'Annapurna Trek',
+    'Chitwan Safari',
+    'Lumbini Temple'
+  ];
+
+  const priceRanges = [
+    'Under $500',
+    '$500 - $1,500', 
+    '$1,500 - $3,000',
+    'Above $3,000'
+  ];
+
+  const durations = [
+    '1-3 days',
+    '4-7 days',
+    '1-2 weeks', 
+    '2+ weeks'
+  ];
+
+  const difficulties = [
+    'Easy',
+    'Moderate', 
+    'Challenging',
+    'Expert'
+  ];
+
+  // Click outside handler for search panel
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (searchRef.current && !searchRef.current.contains(event.target as Node)) {
+        setIsSearchExpanded(false);
+        onSearchExpandedChange?.(false);
+        setShowFilters(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [onSearchExpandedChange]);
 
   const destinations: Destination[] = [
     {
@@ -206,28 +269,188 @@ const HomePage: React.FC<HomePageProps> = ({
               From the peaks of the Himalayas to ancient temples, experience the magic of Nepal with our expert guides.
             </p>
 
-            {/* Search Form */}
+            {/* Enhanced Search Form with Filters */}
             {isVisible && (
-              <form onSubmit={handleSearchSubmit} className="max-w-2xl mx-auto mb-8">
-                <div className="relative group">
-                  <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                    <Search className="h-6 w-6 text-gray-500" />
+              <div ref={searchRef} className="max-w-3xl mx-auto mb-8">
+                <form onSubmit={handleSearchSubmit} className="relative">
+                  <div className="relative group">
+                    <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                      <Search className="h-6 w-6 text-gray-500 transition-colors duration-300 group-focus-within:text-gray-700" />
+                    </div>
+                    <Input
+                      type="text"
+                      placeholder="Where do you want to explore in Nepal?"
+                      value={searchQuery}
+                      onChange={(e) => setSearchQuery(e.target.value)}
+                      onFocus={() => {
+                        setIsSearchExpanded(true);
+                        onSearchExpandedChange?.(true);
+                      }}
+                      className="w-full pl-12 pr-20 py-4 text-lg bg-white/95 backdrop-blur-sm border-2 border-gray-200 rounded-2xl shadow-xl focus:border-gray-400 focus:ring-4 focus:ring-gray-200/50 transition-all duration-500 ease-out h-16 hover:shadow-2xl"
+                    />
+                    <div className="absolute right-2 top-1/2 transform -translate-y-1/2 flex items-center gap-2">
+                      <Button
+                        type="button"
+                        onClick={() => setShowFilters(!showFilters)}
+                        variant="ghost"
+                        className="px-3 py-2 text-gray-600 hover:text-gray-800 hover:bg-gray-100 rounded-xl transition-all duration-300"
+                      >
+                        <SlidersHorizontal className="h-5 w-5" />
+                      </Button>
+                      <Button
+                        type="submit"
+                        className="px-6 py-2 bg-gray-800 hover:bg-gray-900 text-white font-medium rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl"
+                      >
+                        Search
+                      </Button>
+                    </div>
                   </div>
-                  <Input
-                    type="text"
-                    placeholder="Where do you want to explore in Nepal?"
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                    className="w-full pl-12 pr-32 py-4 text-lg bg-white border-2 border-gray-200 rounded-2xl shadow-lg focus:border-gray-400 focus:ring-0 transition-all duration-300 h-16"
-                  />
-                  <Button
-                    type="submit"
-                    className="absolute right-2 top-1/2 transform -translate-y-1/2 px-8 py-3 bg-gray-800 hover:bg-gray-900 text-white font-medium rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl"
-                  >
-                    Search
-                  </Button>
-                </div>
-              </form>
+                  
+                  {/* Expanded Search Panel */}
+                  <div className={`absolute top-full left-0 right-0 mt-3 bg-white/95 backdrop-blur-sm rounded-2xl shadow-2xl border border-gray-200/50 overflow-hidden transition-all duration-500 ease-out transform origin-top ${
+                    isSearchExpanded || showFilters ? 'scale-y-100 opacity-100 translate-y-0' : 'scale-y-0 opacity-0 -translate-y-4 pointer-events-none'
+                  }`}>
+                    <div className="p-6">
+                      {/* Quick Category Filters */}
+                      <div className="mb-6">
+                        <h4 className="text-sm font-semibold text-gray-800 mb-3">Quick Categories</h4>
+                        <div className="flex flex-wrap gap-2">
+                          {searchCategories.map((category) => {
+                            const IconComponent = category.icon;
+                            return (
+                              <Button
+                                key={category.id}
+                                variant="outline"
+                                size="sm"
+                                className="rounded-full px-4 py-2 text-sm border-gray-200 hover:bg-gray-800 hover:text-white hover:border-gray-800 transition-all duration-300"
+                                onClick={() => setSearchQuery(category.label === 'All' ? '' : category.label)}
+                              >
+                                <IconComponent className="w-4 h-4 mr-2" />
+                                {category.label}
+                              </Button>
+                            );
+                          })}
+                        </div>
+                      </div>
+
+                      {/* Advanced Filters */}
+                      {showFilters && (
+                        <div className="border-t border-gray-200 pt-6">
+                          <h4 className="text-sm font-semibold text-gray-800 mb-4">Advanced Filters</h4>
+                          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                            {/* Price Range */}
+                            <div>
+                              <label className="text-xs font-medium text-gray-600 mb-2 block">Price Range</label>
+                              <div className="space-y-2">
+                                {priceRanges.map((range) => (
+                                  <Button
+                                    key={range}
+                                    variant={selectedPriceRange === range ? "default" : "ghost"}
+                                    size="sm"
+                                    className={`w-full justify-start text-sm transition-all duration-300 ${
+                                      selectedPriceRange === range 
+                                        ? 'bg-gray-800 text-white' 
+                                        : 'text-gray-600 hover:text-gray-800 hover:bg-gray-100'
+                                    }`}
+                                    onClick={() => setSelectedPriceRange(selectedPriceRange === range ? '' : range)}
+                                  >
+                                    {range}
+                                  </Button>
+                                ))}
+                              </div>
+                            </div>
+
+                            {/* Duration */}
+                            <div>
+                              <label className="text-xs font-medium text-gray-600 mb-2 block">Duration</label>
+                              <div className="space-y-2">
+                                {durations.map((duration) => (
+                                  <Button
+                                    key={duration}
+                                    variant={selectedDuration === duration ? "default" : "ghost"}
+                                    size="sm"
+                                    className={`w-full justify-start text-sm transition-all duration-300 ${
+                                      selectedDuration === duration 
+                                        ? 'bg-gray-800 text-white' 
+                                        : 'text-gray-600 hover:text-gray-800 hover:bg-gray-100'
+                                    }`}
+                                    onClick={() => setSelectedDuration(selectedDuration === duration ? '' : duration)}
+                                  >
+                                    {duration}
+                                  </Button>
+                                ))}
+                              </div>
+                            </div>
+
+                            {/* Difficulty */}
+                            <div>
+                              <label className="text-xs font-medium text-gray-600 mb-2 block">Difficulty</label>
+                              <div className="space-y-2">
+                                {difficulties.map((difficulty) => (
+                                  <Button
+                                    key={difficulty}
+                                    variant={selectedDifficulty === difficulty ? "default" : "ghost"}
+                                    size="sm"
+                                    className={`w-full justify-start text-sm transition-all duration-300 ${
+                                      selectedDifficulty === difficulty 
+                                        ? 'bg-gray-800 text-white' 
+                                        : 'text-gray-600 hover:text-gray-800 hover:bg-gray-100'
+                                    }`}
+                                    onClick={() => setSelectedDifficulty(selectedDifficulty === difficulty ? '' : difficulty)}
+                                  >
+                                    {difficulty}
+                                  </Button>
+                                ))}
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      )}
+
+                      {/* Recent Searches */}
+                      {!showFilters && (
+                        <div>
+                          <h4 className="text-sm font-semibold text-gray-800 mb-3">Recent Searches</h4>
+                          <div className="grid grid-cols-2 gap-2">
+                            {recentSearches.map((search, index) => (
+                              <Button
+                                key={index}
+                                variant="ghost"
+                                size="sm"
+                                className="justify-start px-3 py-2 text-left hover:bg-gray-100 rounded-lg transition-all duration-300"
+                                onClick={() => {
+                                  setSearchQuery(search);
+                                  setIsSearchExpanded(false);
+                                  onSearchExpandedChange?.(false);
+                                }}
+                              >
+                                <Clock className="w-4 h-4 mr-2 text-gray-400" />
+                                <span className="text-gray-700 text-sm">{search}</span>
+                              </Button>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+
+                      {/* Close Button */}
+                      <div className="flex justify-end mt-4 pt-4 border-t border-gray-200">
+                        <Button
+                          onClick={() => {
+                            setIsSearchExpanded(false);
+                            onSearchExpandedChange?.(false);
+                            setShowFilters(false);
+                          }}
+                          variant="ghost"
+                          size="sm"
+                          className="text-gray-500 hover:text-gray-700 transition-colors duration-300"
+                        >
+                          Close
+                        </Button>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
             )}
 
             {/* Quick Stats */}

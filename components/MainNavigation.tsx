@@ -57,6 +57,7 @@ interface MainNavigationProps {
   searchQuery: string;
   onSearchChange: (query: string) => void;
   isScrolled: boolean;
+  onSearchExpandedChange?: (expanded: boolean) => void;
 }
 
 export function MainNavigation({ 
@@ -68,7 +69,8 @@ export function MainNavigation({
   onLogout,
   searchQuery,
   onSearchChange,
-  isScrolled
+  isScrolled,
+  onSearchExpandedChange
 }: MainNavigationProps) {
   
   const [isSearchExpanded, setIsSearchExpanded] = useState(false);
@@ -121,10 +123,12 @@ export function MainNavigation({
 
   const handleSearchExpand = () => {
     setIsSearchExpanded(true);
+    onSearchExpandedChange?.(true);
   };
 
   const handleSearchCollapse = () => {
     setIsSearchExpanded(false);
+    onSearchExpandedChange?.(false);
   };
 
   return (
@@ -166,51 +170,51 @@ export function MainNavigation({
         }
       `}</style>
       {/* Unified Navigation Bar */}
-      <div className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ease-out ${
+      <div className={`fixed top-0 left-0 right-0 z-50 transition-all duration-700 ease-in-out transform ${
         isScrolled 
-          ? 'bg-white/95 backdrop-blur-lg shadow-lg border-b border-gray-200' 
-          : 'bg-transparent'
+          ? 'bg-white/98 backdrop-blur-xl shadow-2xl border-b border-gray-200/50 translate-y-0' 
+          : 'bg-transparent translate-y-0'
       }`}>
         <div className="max-w-7xl mx-auto px-4">
           <div className="flex items-center justify-between h-16">
             {/* Logo */}
             <div 
               onClick={() => onTabChange('home')}
-              className="cursor-pointer p-2 transition-all duration-300"
+              className="cursor-pointer p-2 transition-all duration-500 ease-out hover:scale-110"
             >
               <img 
                 src="/compass.svg" 
                 alt="Wanderly" 
-                className={`w-8 h-8 transition-all duration-300 rotate-mountain ${
-                  activeTab === 'home' ? 'filter-green' : 'filter-green-hover'
+                className={`w-8 h-8 transition-all duration-500 ease-out rotate-mountain ${
+                  activeTab === 'home' ? 'filter-green scale-110' : 'filter-green-hover'
                 }`}
               />
             </div>
 
             {/* Center Search Bar - Flows up from hero when scrolled */}
-            <div className={`flex-1 max-w-2xl mx-8 relative transition-all duration-700 ease-out ${
+            <div className={`flex-1 max-w-2xl mx-8 relative transition-all duration-1000 ease-out ${
               isScrolled 
                 ? 'opacity-100 translate-y-0 scale-100' 
-                : 'opacity-0 translate-y-8 scale-95 pointer-events-none'
+                : 'opacity-0 translate-y-12 scale-90 pointer-events-none'
             }`}>
-              <div className={`transition-all duration-300 ${
-                isSearchExpanded ? 'scale-105' : 'scale-100'
+              <div className={`transition-all duration-500 ease-out ${
+                isSearchExpanded ? 'scale-105 shadow-2xl' : 'scale-100 shadow-lg hover:shadow-xl'
               }`}>
                 <div className="relative">
-                  <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5 z-10" />
+                  <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5 z-10 transition-colors duration-300" />
                   <Input
                     placeholder="Search destinations, places, activities..."
                     value={searchQuery}
                     onChange={(e) => onSearchChange(e.target.value)}
                     onFocus={handleSearchExpand}
-                    className="pl-12 pr-4 py-3 transition-all duration-300 rounded-full text-lg shadow-sm border border-gray-200 bg-white focus:ring-2 focus:ring-green-500"
+                    className="pl-12 pr-4 py-3 transition-all duration-500 ease-out rounded-full text-lg border border-gray-200 bg-white focus:ring-4 focus:ring-green-500/30 focus:border-green-400 hover:border-gray-300"
                   />
                   {isSearchExpanded && (
                     <Button
                       onClick={handleSearchCollapse}
                       variant="ghost"
                       size="sm"
-                      className="absolute right-2 top-1/2 transform -translate-y-1/2 p-2 rounded-full hover:bg-gray-100"
+                      className="absolute right-2 top-1/2 transform -translate-y-1/2 p-2 rounded-full hover:bg-gray-100 transition-all duration-300"
                     >
                       <X className="w-4 h-4" />
                     </Button>
@@ -218,8 +222,8 @@ export function MainNavigation({
                 </div>
 
                 {/* Expanded Search Panel */}
-                <div className={`absolute top-full left-0 right-0 mt-2 bg-white rounded-2xl shadow-xl border border-gray-200 overflow-hidden transition-all duration-300 transform origin-top ${
-                  isSearchExpanded ? 'scale-y-100 opacity-100' : 'scale-y-0 opacity-0 pointer-events-none'
+                <div className={`absolute top-full left-0 right-0 mt-2 bg-white rounded-2xl shadow-2xl border border-gray-200 overflow-hidden transition-all duration-500 ease-out transform origin-top ${
+                  isSearchExpanded ? 'scale-y-100 opacity-100 translate-y-0' : 'scale-y-0 opacity-0 -translate-y-4 pointer-events-none'
                 }`}>
                   <div className="p-6">
                     {/* Category Filters */}
@@ -271,10 +275,10 @@ export function MainNavigation({
                 <>
                   <Button
                     variant="ghost"
-                    className={`transition-all duration-300 px-4 py-2 rounded-xl ${
+                    className={`transition-all duration-500 ease-out px-4 py-2 rounded-xl hover:scale-105 ${
                       isScrolled 
-                        ? 'text-gray-700 hover:text-gray-900 hover:bg-gray-100' 
-                        : 'text-white hover:text-gray-200 hover:bg-white/10'
+                        ? 'text-gray-700 hover:text-gray-900 hover:bg-gray-100 hover:shadow-lg' 
+                        : 'text-white hover:text-gray-200 hover:bg-white/20 backdrop-blur-sm'
                     }`}
                   >
                     Contact
@@ -282,20 +286,20 @@ export function MainNavigation({
                   <Button
                     onClick={onLogin}
                     variant="ghost"
-                    className={`transition-all duration-300 px-4 py-2 rounded-xl ${
+                    className={`transition-all duration-500 ease-out px-4 py-2 rounded-xl hover:scale-105 ${
                       isScrolled 
-                        ? 'text-gray-700 hover:text-gray-900 hover:bg-gray-100' 
-                        : 'text-white hover:text-gray-200 hover:bg-white/10'
+                        ? 'text-gray-700 hover:text-gray-900 hover:bg-gray-100 hover:shadow-lg' 
+                        : 'text-white hover:text-gray-200 hover:bg-white/20 backdrop-blur-sm'
                     }`}
                   >
                     Login
                   </Button>
                   <Button
                     variant="outline"
-                    className={`px-4 py-2 rounded-xl transition-all duration-300 ${
+                    className={`px-4 py-2 rounded-xl transition-all duration-500 ease-out hover:scale-105 hover:shadow-xl ${
                       isScrolled 
-                        ? 'bg-gray-800 border-gray-800 text-white hover:bg-gray-900' 
-                        : 'bg-white/10 border-white/30 text-white hover:bg-white hover:text-gray-900 backdrop-blur-sm'
+                        ? 'bg-gray-800 border-gray-800 text-white hover:bg-gray-900 hover:border-gray-900' 
+                        : 'bg-white/10 border-white/30 text-white hover:bg-white hover:text-gray-900 backdrop-blur-sm hover:border-white'
                     }`}
                   >
                     Sign Up
@@ -305,15 +309,15 @@ export function MainNavigation({
                 <div className="flex items-center gap-3">
                   <Button
                     variant="ghost"
-                    className={`transition-all duration-300 px-4 py-2 rounded-xl ${
+                    className={`transition-all duration-500 ease-out px-4 py-2 rounded-xl hover:scale-105 ${
                       isScrolled 
-                        ? 'text-gray-700 hover:text-gray-900 hover:bg-gray-100' 
-                        : 'text-white hover:text-gray-200 hover:bg-white/10'
+                        ? 'text-gray-700 hover:text-gray-900 hover:bg-gray-100 hover:shadow-lg' 
+                        : 'text-white hover:text-gray-200 hover:bg-white/20 backdrop-blur-sm'
                     }`}
                   >
                     Contact
                   </Button>
-                  <Avatar className="w-10 h-10 ring-2 ring-white/30">
+                  <Avatar className="w-10 h-10 ring-2 ring-white/30 transition-all duration-500 ease-out hover:scale-110 hover:ring-4 hover:ring-white/50">
                     <AvatarFallback className="bg-gray-800 text-white text-sm font-medium">
                       {profile?.name.split(' ').map(n => n[0]).join('') || 'U'}
                     </AvatarFallback>
@@ -321,10 +325,10 @@ export function MainNavigation({
                   <Button
                     onClick={onLogout}
                     variant="ghost"
-                    className={`transition-all duration-300 px-4 py-2 rounded-xl ${
+                    className={`transition-all duration-500 ease-out px-4 py-2 rounded-xl hover:scale-105 ${
                       isScrolled 
-                        ? 'text-gray-700 hover:text-red-600 hover:bg-gray-100' 
-                        : 'text-white hover:text-red-400 hover:bg-white/10'
+                        ? 'text-gray-700 hover:text-red-600 hover:bg-red-50 hover:shadow-lg' 
+                        : 'text-white hover:text-red-400 hover:bg-red-500/20 backdrop-blur-sm'
                     }`}
                   >
                     <LogOut className="w-4 h-4 mr-2" />
@@ -338,16 +342,16 @@ export function MainNavigation({
       </div>
 
       {/* Bottom Floating Navigation */}
-      <div className="fixed bottom-8 left-1/2 transform -translate-x-1/2 z-50">
-        <div className="liquid-glass rounded-3xl shadow-xl p-1.5">
+      <div className="fixed bottom-8 left-1/2 transform -translate-x-1/2 z-50 transition-all duration-700 ease-out">
+        <div className="liquid-glass rounded-3xl shadow-2xl p-1.5 hover:shadow-3xl transition-all duration-500 ease-out">
           <div className="flex items-center gap-0.5">
             {/* Discover Button */}
             <button
               onClick={scrollToDiscover}
-              className="flex flex-col items-center gap-0 px-2.5 py-1 rounded-2xl transition-all duration-300 text-white min-w-[2.5rem] outline-none"
+              className="flex flex-col items-center gap-0 px-2.5 py-1 rounded-2xl transition-all duration-500 ease-out text-white min-w-[2.5rem] outline-none hover:scale-110 hover:bg-white/10"
             >
-              <MapPin className="w-4 h-4 transition-all duration-300 filter-green-hover" />
-              <span className="text-[10px] font-medium text-gray-300">Discover</span>
+              <MapPin className="w-4 h-4 transition-all duration-500 ease-out filter-green-hover" />
+              <span className="text-[10px] font-medium text-gray-300 transition-all duration-300">Discover</span>
             </button>
 
             {tabs.map((tab) => {
@@ -357,14 +361,18 @@ export function MainNavigation({
                 <button
                   key={tab.id}
                   onClick={() => onTabChange(tab.id)}
-                  className="flex flex-col items-center gap-0 px-2.5 py-1 rounded-2xl transition-all duration-300 min-w-[2.5rem] text-white outline-none"
+                  className={`flex flex-col items-center gap-0 px-2.5 py-1 rounded-2xl transition-all duration-500 ease-out min-w-[2.5rem] text-white outline-none hover:scale-110 ${
+                    isActive ? 'bg-white/20 scale-105' : 'hover:bg-white/10'
+                  }`}
                 >
                   <div className="relative">
-                    <Icon className={`transition-all duration-300 ${
-                      isActive ? 'w-5 h-5 filter-green' : 'w-4 h-4 filter-green-hover'
+                    <Icon className={`transition-all duration-500 ease-out ${
+                      isActive ? 'w-5 h-5 filter-green scale-110' : 'w-4 h-4 filter-green-hover'
                     }`} />
                   </div>
-                  <span className="text-[10px] font-medium text-gray-300 transition-all duration-200">
+                  <span className={`text-[10px] font-medium transition-all duration-300 ${
+                    isActive ? 'text-white' : 'text-gray-300'
+                  }`}>
                     {tab.label}
                   </span>
                 </button>
@@ -375,14 +383,14 @@ export function MainNavigation({
       </div>
 
       {/* Scroll to Top Button */}
-      <div className={`fixed bottom-8 right-8 z-50 transition-all duration-300 ${
-        isScrolled ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4 pointer-events-none'
+      <div className={`fixed bottom-8 right-8 z-50 transition-all duration-700 ease-out ${
+        isScrolled ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-8 scale-75 pointer-events-none'
       }`}>
         <Button
           onClick={scrollToTop}
-          className="w-12 h-12 bg-gray-800 hover:bg-gray-900 text-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300"
+          className="w-12 h-12 bg-gray-800 hover:bg-gray-900 text-white rounded-full shadow-2xl hover:shadow-3xl transition-all duration-500 ease-out hover:scale-110"
         >
-          <ArrowUp className="w-5 h-5" />
+          <ArrowUp className="w-5 h-5 transition-all duration-300" />
         </Button>
       </div>
 
